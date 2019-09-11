@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import Home from "./components/Home";
+import Overview from "./components/Overview";
 import NewRoute from "./components/NewRoute";
+
 import {
   EuiPage,
   EuiPageSideBar,
@@ -32,13 +33,17 @@ class App extends Component {
               <Link to="/new">Additional Route</Link>
             </EuiPageSideBar>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/new" component={NewRoute} />
+              <Route exact path="/" component={Overview} />
+              <Route path="/deployment" component={NewRoute} />
             </Switch>
           </EuiPage>
         </div>
       </Router>
     );
+  }
+
+  detFetchinDataDone() {
+    this.setState({...this.state, isFetching: false});
   }
 }
 

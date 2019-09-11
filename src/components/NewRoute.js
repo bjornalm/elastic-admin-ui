@@ -10,6 +10,8 @@ import {
   EuiPageBody
 } from "@elastic/eui";
 
+// import dataService from "../deploymentsDataService";
+
 class NewRoute extends Component {
   render() {
     return (
@@ -17,7 +19,7 @@ class NewRoute extends Component {
         <EuiPageHeader>
           <EuiPageHeaderSection>
             <EuiTitle size="l">
-              <h1>New route</h1>
+              <h1>Deployment details</h1>
             </EuiTitle>
           </EuiPageHeaderSection>
         </EuiPageHeader>
