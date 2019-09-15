@@ -7,8 +7,8 @@ class DeploymentModel {
     this.isStopped = deployment.isStopped;
     this.healthy = deployment.healthy;
     this.kibana = deployment.kibana.enabled;
-    this.monitoring = deployment.monitoring.enabled;  
+    this.monitoring = deployment.monitoring.enabled;
   }
 }
 
-export default DeploymentModel;  
+export default DeploymentModel;

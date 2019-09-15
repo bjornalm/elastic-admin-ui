@@ -11,7 +11,7 @@ import {
   EuiHeader,
   EuiHeaderSection,
   EuiHeaderLogo,
-  EuiHeaderSectionItem,
+  EuiHeaderSectionItem
 } from "@elastic/eui";
 import { EuiSpacer } from "@elastic/eui";
 
@@ -23,15 +23,15 @@ class App extends Component {
           <EuiHeader>
             <EuiHeaderSection grow={true}>
               <EuiHeaderSectionItem border="right">
-                <EuiHeaderLogo href="#" iconType={"logoElastic"} />                
-              </EuiHeaderSectionItem>            
+                <EuiHeaderLogo href="#" iconType={"logoElastic"} />
+              </EuiHeaderSectionItem>
             </EuiHeaderSection>
           </EuiHeader>
           <EuiPage>
             <EuiPageSideBar>
-              <EuiSpacer/>          
+              <EuiSpacer />
               <Link to="/">Dashboard</Link>
-              <EuiSpacer/>
+              <EuiSpacer />
               <Link to="/list">Deployments list</Link>
             </EuiPageSideBar>
             <Switch>
@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   detFetchinDataDone() {
-    this.setState({...this.state, isFetching: false});
+    this.setState({ ...this.state, isFetching: false });
   }
 }
 

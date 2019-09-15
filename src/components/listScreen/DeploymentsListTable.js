@@ -1,59 +1,56 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { EuiInMemoryTable, EuiHealth } from '@elastic/eui';
+import { EuiInMemoryTable, EuiHealth } from "@elastic/eui";
 
 class DeploymentsListTable extends Component {
-
   render() {
     const columns = [
       {
-        field: 'id',
-        name: 'Id',
+        field: "id",
+        name: "Id",
         sortable: true,
-        render: id => (          
-          <Link to={`/deployment/${id}`}>{id.substring(0, 6)}</Link>
-        ),        
+        render: id => <Link to={`/deployment/${id}`}>{id.substring(0, 6)}</Link>
       },
       {
-        field: 'healthy',
-        name: 'Health',
-        sortable: true,      
-        dataType: 'boolean',
-        render: healthy => renderHealth(healthy),        
+        field: "healthy",
+        name: "Health",
+        sortable: true,
+        dataType: "boolean",
+        render: healthy => renderHealth(healthy)
       },
       {
-        field: 'displayName',
-        name: 'Name',
-        sortable: true
-      },    
-      {
-        field: 'regionId',
-        name: 'Region',
+        field: "displayName",
+        name: "Name",
         sortable: true
       },
       {
-        field: 'isStopped',
-        name: 'Stopped',
+        field: "regionId",
+        name: "Region",
         sortable: true
       },
       {
-        field: 'monitoring',
-        name: 'Monitoring',
+        field: "isStopped",
+        name: "Stopped",
         sortable: true
       },
       {
-        field: 'kibana',
-        name: 'Kibana',
-        sortable: true
-      },    
-      {
-        field: 'user.id',
-        name: 'User Id',
+        field: "monitoring",
+        name: "Monitoring",
         sortable: true
       },
       {
-        field: 'user.level',
-        name: 'User Level',
+        field: "kibana",
+        name: "Kibana",
+        sortable: true
+      },
+      {
+        field: "user.id",
+        name: "User Id",
+        sortable: true
+      },
+      {
+        field: "user.level",
+        name: "User Level",
         sortable: true
       }
     ];
@@ -61,24 +58,24 @@ class DeploymentsListTable extends Component {
     const search = {
       box: {
         incremental: true,
-        schema: true,
+        schema: true
       },
       filters: [
-            {
-              type: 'field_value_selection',
-              field: 'regionId',
-              name: 'Region',
-              multiSelect: false,
-              options: generateFilterOptions(this.props.regions),
-            },
-            {
-              type: 'field_value_selection',
-              field: 'user.level',
-              name: 'User Level',
-              multiSelect: false,
-              options: generateFilterOptions(this.props.userLevels),
-            }           
-          ]
+        {
+          type: "field_value_selection",
+          field: "regionId",
+          name: "Region",
+          multiSelect: false,
+          options: generateFilterOptions(this.props.regions)
+        },
+        {
+          type: "field_value_selection",
+          field: "user.level",
+          name: "User Level",
+          multiSelect: false,
+          options: generateFilterOptions(this.props.userLevels)
+        }
+      ]
     };
 
     return (
@@ -100,8 +97,11 @@ function generateFilterOptions(list) {
 }
 
 function renderHealth(healthy) {
-  return healthy ? <EuiHealth color={'success'}>Healthy</EuiHealth> : 
-    <EuiHealth color={'danger'}>Unhealthy</EuiHealth>;
-}  
+  return healthy ? (
+    <EuiHealth color={"success"}>Healthy</EuiHealth>
+  ) : (
+    <EuiHealth color={"danger"}>Unhealthy</EuiHealth>
+  );
+}
 
 export default DeploymentsListTable;
