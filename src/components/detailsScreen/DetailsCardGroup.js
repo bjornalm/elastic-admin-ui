@@ -14,8 +14,7 @@ class DetailsCardGroup extends Component {
     const { isStopped, monitoring, user, kibana } = this.props;
     const premium = user.isPremium ? (
       <EuiBadge color="primary" iconType="starFilled" iconSide="right">
-        {" "}
-        Premium{" "}
+        Premium
       </EuiBadge>
     ) : null;
 

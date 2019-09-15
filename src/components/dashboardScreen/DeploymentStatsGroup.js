@@ -18,9 +18,7 @@ class DeploymentStatsGroup extends Component {
               description="Total"
               textAlign="right"
               isLoading={this.props.loading}
-            >
-              <EuiIcon type="empty" />
-            </EuiStat>
+            ></EuiStat>
           </EuiPanel>
         </EuiFlexItem>
         <EuiFlexItem>
