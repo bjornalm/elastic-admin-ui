@@ -14,9 +14,10 @@ class DeploymentStatsGroup extends Component {
         <EuiFlexItem>
           <EuiPanel>
             <EuiStat
-              title={loadingIssueWorkaround(this.props.total)}
+              title={this.props.total}
               description="Total"
               textAlign="right"
+              isLoading={this.props.loading}
             >
               <EuiIcon type="empty" />
             </EuiStat>
@@ -25,10 +26,11 @@ class DeploymentStatsGroup extends Component {
         <EuiFlexItem>
           <EuiPanel>
             <EuiStat
-              title={loadingIssueWorkaround(this.props.unhealthy)}
+              title={this.props.unhealthy}
               description="Unhealthy"
               titleColor="danger"
               textAlign="right"
+              isLoading={this.props.loading}
             >
               <EuiIcon type="alert" color="danger" />
             </EuiStat>
@@ -37,10 +39,11 @@ class DeploymentStatsGroup extends Component {
         <EuiFlexItem>
           <EuiPanel>
             <EuiStat
-              title={loadingIssueWorkaround(this.props.healthy)}
+              title={this.props.healthy}
               description="Healthy"
               titleColor="secondary"
               textAlign="right"
+              isLoading={this.props.loading}
             >
               <EuiIcon type="check" color="secondary" />
             </EuiStat>
@@ -49,9 +52,10 @@ class DeploymentStatsGroup extends Component {
         <EuiFlexItem>
           <EuiPanel>
             <EuiStat
-              title={loadingIssueWorkaround(this.props.totalKibana)}
+              title={this.props.totalKibana}
               description="Kibana enabled"
               textAlign="right"
+              isLoading={this.props.loading}
             >
               <EuiIcon type="logoKibana" />
             </EuiStat>
@@ -60,9 +64,10 @@ class DeploymentStatsGroup extends Component {
         <EuiFlexItem>
           <EuiPanel>
             <EuiStat
-              title={loadingIssueWorkaround(this.props.totalMonitoring)}
+              title={this.props.totalMonitoring}
               description="Monitoring enabled"
               textAlign="right"
+              isLoading={this.props.loading}
             ></EuiStat>
           </EuiPanel>
         </EuiFlexItem>
@@ -71,10 +76,14 @@ class DeploymentStatsGroup extends Component {
   }
 }
 
-// The EuiStat isLoading property is not working properly
-// this is a workaround.
-function loadingIssueWorkaround(val) {
-  return val !== undefined ? val : "---";
-}
+// The EuiStat doesn't handle undefined input,
+// not even when isLoading = true.
+DeploymentStatsGroup.defaultProps = {
+  total: "",
+  unhealthy: "",
+  healthy: "",
+  totalKibana: "",
+  totalMonitoring: ""
+};
 
 export default DeploymentStatsGroup;

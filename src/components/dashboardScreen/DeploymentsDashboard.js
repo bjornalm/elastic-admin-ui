@@ -92,6 +92,7 @@ class DeploymentsDashboard extends Component {
       this.state.unhealthyDeployments && this.state.unhealthyDeployments.length;
     return (
       <DeploymentStatsGroup
+        loading={this.state.loading}
         total={this.state.totalNumberOfDeployments}
         unhealthy={unhealthy}
         healthy={this.state.totalHealthyDeployments}
