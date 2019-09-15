@@ -3,16 +3,68 @@ import { Link } from "react-router-dom";
 import { EuiInMemoryTable, EuiHealth } from '@elastic/eui';
 
 class UnhealthyOverviewTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      incremental: false,
-      filters: false,
-    };
-  }
-
+  
   render() {
-    const columns = getColumns(this.props.propertiesWithHealthStatus);
+    const columns = [
+      {
+        field: 'id',
+        name: 'Id',
+        sortable: true,
+        render: id => (          
+          <Link to={`/deployment/${id}`}>{id.substring(0, 6)}</Link>
+        ),        
+      },
+      {
+        field: 'planUnhealthy',
+        name: 'Plan',
+        sortable: true,      
+        dataType: 'boolean',
+        render: unhealthy => renderHealth(unhealthy),        
+      },
+     {
+        field: 'masterUnhealthy',
+        name: 'Master',
+        sortable: true,      
+        dataType: 'boolean',
+        render: unhealthy => renderHealth(unhealthy),        
+      },
+      {
+        field: 'shardsUnhealthy',
+        name: 'Shards',
+        sortable: true,      
+        dataType: 'boolean',
+        render: unhealthy => renderHealth(unhealthy),        
+      },
+      {
+        field: 'instancesUnhealthy',
+        name: 'Instances',
+        sortable: true,      
+        dataType: 'boolean',
+        render: unhealthy => renderHealth(unhealthy),        
+      },
+      {
+        field: 'snapshotsUnhealthy',
+        name: 'Snapshots',
+        sortable: true,
+        dataType: 'boolean',
+        render: unhealthy => renderHealth(unhealthy),      
+      },         
+      {
+        field: 'regionId',
+        name: 'Region',
+        sortable: true
+      },
+      {
+        field: 'user.id',
+        name: 'User Id',
+        sortable: true
+      },
+      {
+        field: 'user.level',
+        name: 'User Level',
+        sortable: true
+      }
+    ];
     const search = {
       box: {
         incremental: true,
@@ -76,69 +128,6 @@ class UnhealthyOverviewTable extends Component {
 
 function generateFilterOptions(list) {
   return list ? list.map(opt => ({ value: opt, name: opt, view: opt })) : [];
-}
-
-function getColumns() {
-  return [
-    {
-      field: 'id',
-      name: 'Id',
-      sortable: true,
-      render: id => (          
-        <Link to={`/deployment/${id}`}>{id.substring(0, 6)}</Link>
-      ),        
-    },
-    {
-      field: 'planUnhealthy',
-      name: 'Plan',
-      sortable: true,      
-      dataType: 'boolean',
-      render: unhealthy => renderHealth(unhealthy),        
-    },
-   {
-      field: 'masterUnhealthy',
-      name: 'Master',
-      sortable: true,      
-      dataType: 'boolean',
-      render: unhealthy => renderHealth(unhealthy),        
-    },
-    {
-      field: 'shardsUnhealthy',
-      name: 'Shards',
-      sortable: true,      
-      dataType: 'boolean',
-      render: unhealthy => renderHealth(unhealthy),        
-    },
-    {
-      field: 'instancesUnhealthy',
-      name: 'Instances',
-      sortable: true,      
-      dataType: 'boolean',
-      render: unhealthy => renderHealth(unhealthy),        
-    },
-    {
-      field: 'snapshotsUnhealthy',
-      name: 'Snapshots',
-      sortable: true,
-      dataType: 'boolean',
-      render: unhealthy => renderHealth(unhealthy),      
-    },         
-    {
-      field: 'regionId',
-      name: 'Region',
-      sortable: true
-    },
-    {
-      field: 'user.id',
-      name: 'User Id',
-      sortable: true
-    },
-    {
-      field: 'user.level',
-      name: 'User Level',
-      sortable: true
-    }
-  ];
 }
 
 function renderHealth(unhealthy) {

@@ -1,4 +1,5 @@
-import UnhealthyDeployment from "./UnhealthyDeployment";
+import DeployementsOverviewModel from "./DeploymentsDashboardModel";
+import DeploymentsListModel from "./DeploymentsListModel";
 
 const cacheTimeout = 60 * 1000;
 
@@ -11,15 +12,17 @@ class DeploymentsDataHandler {
     }, cacheTimeout)
   }
 
-  getDeploymentsOverview() {    
-    return this.getAllDeployments().then(result => ({        
-      totalNumberOfDeployments: result.totalCount,
-      unhealthyDeployments: getUnhealtyDeployments(result.record),
-      regions: getUniqueRegions(result.record),
-      userLevels: getUniqueUserLevels(result.record)
-      }) 
-    )
+  getDeploymentsDashboard() {
+    return this.getAllDeployments().then(result => new DeployementsOverviewModel(result));
   }
+
+  getDeploymentDetails(id) {    
+    return this.getAllDeployments().then(result => result.record.filter(dep => dep.id === id)[0]);
+  }
+
+  getDeploymentList() {    
+    return this.getAllDeployments().then(result => new DeploymentsListModel(result));
+  }  
 
   getAllDeployments() {
     // ASSUMPTION: Loading all this data is expensive
@@ -35,19 +38,7 @@ class DeploymentsDataHandler {
 }
   
 function loadAllDeployments() {
-  return fetch('deployments.json').then(data => data.json());
-}
-
-function getUnhealtyDeployments(deployments) {
-  return deployments.filter(deployment => !deployment.healthy).map(dep => new UnhealthyDeployment(dep));
-}
-
-function getUniqueRegions(deployments) {
-  return [...new Set(deployments.map(dep => dep.regionId))];
-}
-
-function getUniqueUserLevels(deployments) {
-  return [...new Set(deployments.map(dep => dep.user.level))];
+  return fetch('/deployments.json').then(data => data.json());
 }
 
 export default new DeploymentsDataHandler();

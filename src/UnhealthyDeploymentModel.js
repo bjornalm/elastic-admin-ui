@@ -1,4 +1,4 @@
-class UnhealthyDeployment {
+class UnhealthyDeploymentModel {
   constructor(deployment) {
     this.regionId = deployment.regionId;
     this.id = deployment.id;
@@ -12,4 +12,4 @@ class UnhealthyDeployment {
   }
 }
 
-export default UnhealthyDeployment;
+export default UnhealthyDeploymentModel;  

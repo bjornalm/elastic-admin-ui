@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import Overview from "./components/Overview";
-import NewRoute from "./components/NewRoute";
+import DeploymentsDashboard from "./components/dashboardScreen/DeploymentsDashboard";
+import DeploymentDetails from "./components/detailsScreen/DeploymentDetails";
+import DeploymentList from "./components/listScreen/DeploymentList";
 
 import {
   EuiPage,
@@ -10,7 +11,7 @@ import {
   EuiHeader,
   EuiHeaderSection,
   EuiHeaderLogo,
-  EuiHeaderSectionItem
+  EuiHeaderSectionItem,
 } from "@elastic/eui";
 import { EuiSpacer } from "@elastic/eui";
 
@@ -22,19 +23,21 @@ class App extends Component {
           <EuiHeader>
             <EuiHeaderSection grow={true}>
               <EuiHeaderSectionItem border="right">
-                <EuiHeaderLogo href="#" iconType={"logoElastic"} />
-              </EuiHeaderSectionItem>
+                <EuiHeaderLogo href="#" iconType={"logoElastic"} />                
+              </EuiHeaderSectionItem>            
             </EuiHeaderSection>
           </EuiHeader>
           <EuiPage>
             <EuiPageSideBar>
-              <Link to="/">Home</Link>
+              <EuiSpacer/>          
+              <Link to="/">Dashboard</Link>
               <EuiSpacer/>
-              <Link to="/new">Additional Route</Link>
+              <Link to="/list">Deployments list</Link>
             </EuiPageSideBar>
             <Switch>
-              <Route exact path="/" component={Overview} />
-              <Route path="/deployment" component={NewRoute} />
+              <Route exact path="/" component={DeploymentsDashboard} />
+              <Route path="/deployment/:id" component={DeploymentDetails} />
+              <Route path="/list" component={DeploymentList} />
             </Switch>
           </EuiPage>
         </div>

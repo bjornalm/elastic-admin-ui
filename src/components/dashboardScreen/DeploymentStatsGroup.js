@@ -4,19 +4,17 @@ import {
   EuiIcon,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiSpacer,
   EuiStat  
 } from "@elastic/eui";
 
-class DeploymentStats extends Component { 
+class DeploymentStatsGroup extends Component { 
   render() {
     return (
-      <div>
-        <EuiFlexGroup>
+      <EuiFlexGroup>
           <EuiFlexItem>
             <EuiPanel>        
               <EuiStat
-                title={this.props.total}
+                title={ loadingIssueWorkaround(this.props.total)}
                 description="Total"
                 textAlign="right"
                 >
@@ -27,7 +25,7 @@ class DeploymentStats extends Component {
           <EuiFlexItem>
             <EuiPanel>
               <EuiStat
-                title={this.props.unhealthy}
+                title={loadingIssueWorkaround(this.props.unhealthy)}
                 description="Unhealthy"
                 titleColor="danger"
                 textAlign="right"
@@ -39,7 +37,7 @@ class DeploymentStats extends Component {
           <EuiFlexItem>
             <EuiPanel>
               <EuiStat
-                title={this.props.healthy}
+                title={loadingIssueWorkaround(this.props.healthy)}
                 description="Healthy"
                 titleColor="secondary"
                 textAlign="right"
@@ -51,20 +49,33 @@ class DeploymentStats extends Component {
           <EuiFlexItem>
             <EuiPanel>
               <EuiStat
-                title="88"
-                description="Error widgets"
-                titleColor="danger"
+                title={loadingIssueWorkaround(this.props.totalKibana)}
+                description="Kibana enabled"                
                 textAlign="right"
                 >
-                <EuiIcon type="alert" color="danger" />
-              </EuiStat>
+                <EuiIcon type="logoKibana"/>
+              </EuiStat>              
             </EuiPanel>
           </EuiFlexItem>
-        </EuiFlexGroup>
-        <EuiSpacer />
-      </div>
+          <EuiFlexItem>
+            <EuiPanel>
+              <EuiStat
+                title={loadingIssueWorkaround(this.props.totalMonitoring)}
+                description="Monitoring enabled"
+                textAlign="right"
+                >
+              </EuiStat>
+            </EuiPanel>
+          </EuiFlexItem>          
+        </EuiFlexGroup> 
     )
   }
 }
 
-export default DeploymentStats;
+// The EuiStat isLoading property is not working properly
+// this is a workaround.
+function loadingIssueWorkaround(val) {
+  return val !== undefined ? val : '---'
+} 
+
+export default DeploymentStatsGroup;
